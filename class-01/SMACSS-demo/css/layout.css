@@ -1,20 +1,19 @@
 /* positions, structure, width, height*/
-body{
+section{
+  width: 200px;
+  height: 200px;
+  border: 2px red solid;
   margin: auto;
-  width: 500px;
-}
-
-div{
-  background-color: green;
-  width: 250px;
-  height: 450px;
-  margin: 20px;
-  overflow: scroll;
 }
 
 @media only screen and (min-width:500px){
   div{
-    display: inline-block;
-    background-color: lightblue;
+    height: 600px;
+    width: 600px;
+    margin: auto; 
+  }
+
+  section{
+    float: left;
   }
 }

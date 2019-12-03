@@ -1,0 +1,16 @@
+ul {
+    font-size:2em;
+}
+
+li {
+    padding: .25em;
+}
+
+li div {
+    font-size:.5em;
+    display:none;
+}
+
+li.active div {
+    display:block;
+}
