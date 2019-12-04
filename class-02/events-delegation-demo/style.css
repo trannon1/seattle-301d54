@@ -4,6 +4,7 @@ ul {
 
 li {
     padding: .25em;
+    list-style-type: none;
 }
 
 li div {
@@ -13,4 +14,10 @@ li div {
 
 li.active div {
     display:block;
+}
+
+img {
+    width: 200px;
+    border: 2px solid black;
+    margin-right: 1em;
 }
