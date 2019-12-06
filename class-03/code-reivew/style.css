@@ -1,0 +1,13 @@
+img{
+  width: 200px;
+}
+
+section{
+  width: 300px;
+  margin: auto;
+  float: left;
+}
+
+footer{
+  clear: both;
+}

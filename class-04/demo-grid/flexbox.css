@@ -1,0 +1,35 @@
+@media (min-width:960px){
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+    }
+
+    aside {
+        width: 250px;
+        order: 3;
+    }
+
+    nav {
+        order: 2;
+        width: 250px;
+    }
+
+    .content{
+       display: flex;
+       flex-direction: column;
+       order: 2;
+       flex: 1; 
+    }
+
+    .deck {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}

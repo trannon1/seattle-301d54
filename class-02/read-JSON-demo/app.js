@@ -1,7 +1,7 @@
 // GOAL: render each dog and their info to the index page
   // call a render method on each dog instance
 
-const dogArray = [];
+const dogArray = ['dogie'];
 
 function Dog(dogObj){
   this.name = dogObj.name;

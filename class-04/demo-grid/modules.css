@@ -1,0 +1,30 @@
+
+header, footer {
+  background: salmon;
+  color: green;
+  height: 70px;
+  line-height: 70px;
+  border: 2px dotted purple;
+  text-align: center;
+}
+
+main {
+  background: slategray;
+}
+
+.content {
+  background: black;
+}
+
+aside {
+  background: lightgray;
+}
+
+nav {
+  background: green;
+}
+
+.deck {
+  background: yellow;
+}
+

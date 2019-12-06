@@ -1,18 +1,23 @@
-main{
-  display: flex;
-}
+@media(min-width: 760px){
+  main{
+    display: flex;
+  }
 
-#left{
-  order: 1;
-  height: 500px;
-}
+  #left{
+    width: 10%;
+    order: 1;
+    height: 600px;
+  }
 
-#main{
-  order: 2;
-  height: 500px;
-}
+  #right{
+    width: 10%;
+    order: 3;
+    height: 600px;
+  }
 
-#right{
-  order: 3;
-  height: 500px;
+  #main{
+    width: 80%;
+    order: 2;
+    height: 600px;
+  }
 }
