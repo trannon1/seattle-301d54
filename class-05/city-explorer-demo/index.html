@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <title>City Explorer</title>
+
+  <script type="text/x-handlebars-template" id="weather-results-template">
+    <li>
+      The forecast for {{ time }} is: {{ forecast }}
+    </li>
+  
+  </script>
+</head>
+<body>
+  <header>
+    <h1>City Explorer</h1>
+  </header>
+
+  <main>
+    <img src="img/seattleMap.png" alt="map of seattle" title="map of seattle" />
+
+    <ul id="weather-container"></ul>
+
+  </main>
+
+  <footer></footer>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+  <!-- handlebars -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.2.0/handlebars.min.js"></script>
+
+  <!-- js -->
+  <script src="app.js"></script>
+</body>
+</html>
