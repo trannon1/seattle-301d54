@@ -28,10 +28,10 @@ app.get('/location', (request, response) => {
   try{
     const city = request.query.data;
   
-    const locationData = searchLatToLong(city);
+    searchLatToLong(city, response);
   
-    console.log(locationData);
-    response.send(locationData);
+    // console.log('I am in location with locationData = :', locationData);
+
   }
   catch(error){
     console.error(error); // will turn the error message red if the environment supports it
@@ -40,30 +40,51 @@ app.get('/location', (request, response) => {
   }
 })
 
+app.get('/weather', (request, response) => {
+  // console.log('I am in the weather route', request.query.data);
+  let latitude = request.query.data.latitude;
+  let longitude = request.query.data.longitude;
+
+  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${latitude},${longitude}`;
+
+  superagent.get(url)
+    .then(results => {
+      let dailyArray = results.body.daily.data;
+
+      const dailyWeatherArray = dailyArray.map(day => {
+        return new Weather(day);
+      })
+      response.send(dailyWeatherArray);
+    })
+    .catch(error => console.error(error));
+
+})
+
 app.get('*', (request, response) => {
   response.status(404).send('huh?');
 })
 
-function searchLatToLong(location){
-  const geoData = require('./data/geo.json');
+function searchLatToLong(location, response){
 
   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_API_KEY}`;
 
-  superagent.get(url)
+  return superagent.get(url)
     .then(results => {
       
-      console.log(results.body)
-      // const locationObject = new Location(location, results);
+      // console.log(results.body)
+      // { results:
+      //   [ { address_components: [Array],
+      //       formatted_address: 'Seattle, WA, USA',
+      //       geometry: [Object],
+      //       place_id: 'ChIJVTPokywQkFQRmtVEaUZlJRA',
+      //       types: [Array] } ],
+      //  status: 'OK' }
+      const locationObject = new Location(location, results.body);
 
-      // console.log(locationObject)
-      // return locationObject;
+      // console.log('our location Object is: ', locationObject)
+      response.send(locationObject);
     
     });
-
-
-
-
-
 
 }
 
