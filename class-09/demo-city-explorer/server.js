@@ -9,6 +9,7 @@ const superagent = require('superagent');
 // modules
 const client = require('./lib/client');
 const getLocation = require('./lib/location/location');
+const getWeather = require('./lib/weather/getWeather');
 
 const app = express();
 app.use(cors());
@@ -18,43 +19,18 @@ const PORT = process.env.PORT || 3003;
 //routes
 app.get('/location', getLocation);
 app.get('/weather', getWeather);
-
-// Eventful
-app.get('/events', (request, response) => {
-  // { search_query: 'paris',
-  // formatted_query: 'Paris, France',
-  // latitude: '48.856614',
-  // longitude: '2.3522219' }
-  let locationObj = request.query.data;
-  getEventsData(locationObj, response);
-
-})
+app.get('/events', getEvents);
 
 //404 all unwanted extentions
 app.get('*', (request, responce) => {
   responce.status(404);
 });
 
+function getEvents (request, response) {
+  let locationObj = request.query.data;
+  getEventsData(locationObj, response);
 
-function getWeather(request, response){
-  const currentCity = request.query.data;
-  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${currentCity.latitude},${currentCity.longitude}`;
-
-  superagent.get(url)
-    .then(data => {
-
-      const forcastList = data.body.daily.data.map(dailyWeather => new Forcast(dailyWeather));
-      response.send(forcastList);
-
-    })
-    .catch(error => {
-
-      console.error(error);
-      response.send(error).status(500);
-
-    });
-
-};
+}
 
 function getEventsData(object, response){
  
@@ -62,11 +38,13 @@ function getEventsData(object, response){
 
   superagent.get(url)
     .then(results => {
+      // first check if events HAS data then if it does map over it
       let eventsArr = JSON.parse(results.text).events.event;
       const finalEventsArr =eventsArr.map(event => new Event(event));
 
       response.send(finalEventsArr);
     })
+    .catch(err => console.error(err));
   
   }
   function Event(eventData) {
@@ -76,13 +54,6 @@ function getEventsData(object, response){
     this.summary = eventData.description;
   }
 
-function Forcast(day) {
-
-  this.forecast = day.summary;
-  let date = new Date(day.time * 1000);
-  this.time = date.toDateString();
-
-}
 
 
 client.connect()
