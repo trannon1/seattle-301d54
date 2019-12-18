@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/add">Add a New Task</a></li>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <form action="/add" method="post">
+    <fieldset>
+      <legend>Add a task</legend>
+      <input type="text" name="title" placeholder="Task">
+      <textarea name="description" placeholder="Description of the task" cols="30" rows="10"></textarea>
+      <input type="text" name="category" placeholder="Category">
+      <input type="text" name="contact" placeholder="Contact Person">
+      <input type="text" name="status" placeholder="Completion Status">
+      <button type="submit">Add This Task</button>
+    </fieldset>
+  </form>
+</body>
+</html>

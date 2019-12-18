@@ -12,7 +12,6 @@ function getAPIResults(response, location){
       console.log(data.body.results[0].geometry.location.lat);
 
       const city = new City(location, data.body);
-      console.log('city', city);
 
       insertIntoDataBase(city);
 

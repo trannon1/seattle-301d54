@@ -10,11 +10,8 @@ let person = new Person('Fred', 51);
 
 // bad code -- references the same thing over and over
 function sayName(person) {
-  if (person.age >= 50) {
-    return person.getName().toUpperCase();
-  } else {
-    return person.getName().toLowerCase();
-  }
+  let personName = person.getName();
+  return person.age >= 50 ? personName.toUpperCase() : personName.toLowerCase();
 }
 
 console.log(sayName(person));
@@ -47,7 +44,7 @@ doSomethingAsync(person)
   .then( data => changeNameToUpper(data.name))
   .then( name => print(name) )
   .then( differentData => changeNameToLower(differentData.name) )
-  .then( name => print(name) )
+  .then( differentData => print(differentData) )
 
 function changeNameToUpper(name){
   return name.toUpperCase();
