@@ -22,5 +22,21 @@
     <p>contact<%= taskInfo.contact %></p> 
     <p>status <%=taskInfo.status %></p>
   </section>
+
+  <section>
+    <form action="<%= `/update/${taskInfo.id}?_method=PUT` %>" method="post">
+   
+      <input type="text" name="title" value="<%- taskInfo.title %>" placeholder="Task Name">
+
+      <input type="text" name="description" value="<%- taskInfo.description %>" placeholder="description">
+
+      <input type="text" name="contact" value="<%- taskInfo.contact %>" placeholder="contact">
+
+      <input type="text" name="status" value="<%- taskInfo.status %>" placeholder="status">
+
+      <button>submit</button>
+    </form>
+  </section>
+
 </body>
 </html>

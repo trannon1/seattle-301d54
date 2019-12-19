@@ -3,15 +3,18 @@
 const express = require('express');
 const app = express();
 require('ejs');
-const superagent = require('superagent');
 const pg = require('pg');
 require('dotenv').config();
+const methodOverride = require('method-override');
 
 const PORT = process.env.PORT || 3001;
 
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded());
+app.use(methodOverride('_method'));
+
+
 
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => {
@@ -23,6 +26,7 @@ app.get('/', getTasks);
 app.get('/tasks/:task_id', getOneTask);
 app.get('/add', showForm);
 app.post('/add', addTask);
+app.put('/update/:task_id', updateTask);
 
 function getTasks(request, response){
   // get tasks out of database:
@@ -43,7 +47,7 @@ function getOneTask(request, response){
   client.query(sql, safeValues)
     .then(results => {
       let chosenTask = results.rows[0];
-      response.render('pages/details', {taskInfo:chosenTask});
+      response.render('pages/details', { taskInfo: chosenTask });
     })
   // go to the database, get a specific task using the id of that task and show the details of that task on the detail.ejs page
 }
@@ -70,6 +74,21 @@ function addTask(request, response){
   client.query(sql, safeValues);
 
   response.redirect('/');
+}
+
+function updateTask(request, response){
+  let {title, description, contact, status} = request.body;
+
+  let sql = 'UPDATE tasks SET title=$1, description=$2, contact=$3, status=$4 WHERE id=$5;';
+
+  let id = request.params.task_id;
+
+  let safeValues = [title, description, contact, status, id];
+
+  client.query(sql, safeValues);
+
+  response.redirect(`/tasks/${id}`);
+  // redirect to the detail page with the new information
 }
 
 client.connect(() => {

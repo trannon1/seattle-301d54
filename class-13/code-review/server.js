@@ -10,10 +10,13 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded());
 
-app.get('/', getForm);
+app.get('/', getSavedBooks);
 app.post('/searches', getBookInfo);
+app.get('/searches/new', newSearch);
 
-function getForm(request, response){
+function getSavedBooks(request, response){
+
+
   response.render('pages/index');
 }
 
@@ -45,6 +48,10 @@ function getBookInfo(request, response){
 
       response.render('pages/searches/show');
     })
+}
+
+function newSearch(request, response){
+  response.render('./pages/searches/new');
 }
 
   
